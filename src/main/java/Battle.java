@@ -13,7 +13,7 @@ public class Battle {
             }
         }
         if (!monster.isAlive())
-            player.monsterKilled();
+            player.monsterKilled(monster);
         if (!player.isAlive())
             System.out.println("Игрок уничтожен");
     }

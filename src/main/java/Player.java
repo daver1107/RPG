@@ -1,5 +1,3 @@
-import java.text.DecimalFormat;
-
 public class Player extends Character {
     private int monstersKilled;
 
@@ -9,12 +7,12 @@ public class Player extends Character {
     }
 
     @Override
-    public double getHealth() {
+    public int getHealth() {
         return super.getHealth();
     }
 
     @Override
-    public void setHealth(double health) {
+    public void setHealth(int health) {
         super.setHealth(health);
     }
 
@@ -24,7 +22,7 @@ public class Player extends Character {
     }
 
     @Override
-    public void setStrength(double strength) {
+    public void setStrength(int strength) {
         super.setStrength(strength);
     }
 
@@ -44,7 +42,7 @@ public class Player extends Character {
     }
 
     @Override
-    public double getStrength() {
+    public int getStrength() {
         return super.getStrength();
     }
 
@@ -58,43 +56,51 @@ public class Player extends Character {
         return super.getExperience();
     }
 
-    public Player(String name, double health, int skill, double strength, int gold, int experience) {
+    public Player(String name, int health, int skill, int strength, int gold, int experience) {
         super(name, health, skill, strength, gold, experience);
         this.monstersKilled = 0;
     }
 
 
-            public void getInfo () {
-                System.out.println("Имя: " + getName() +
-                        "\nЗдоровье: " + getHealth() +
-                        "\nЛовкость: " + getSkill() +
-                        "\nСила: " + getStrength() +
-                        "\nЗолото: " + getGold() +
-                        "\nОпыт: " + getExperience() +
-                        "\nУбито монстров: " + monstersKilled);
-            }
+    public void getInfo() {
+        System.out.println("Имя: " + getName() +
+                "\nЗдоровье: " + getHealth() +
+                "\nЛовкость: " + getSkill() +
+                "\nСила: " + getStrength() +
+                "\nЗолото: " + getGold() +
+                "\nОпыт: " + getExperience() +
+                "\nУбито монстров: " + monstersKilled);
+    }
 
-            public void fight (Monster monster){
-            DecimalFormat f = new DecimalFormat("0.00");
-            double power = 0;
-            if (getSkill() < 10) {
-                power = getStrength() * (Math.random() * 0.9);
-                if (power == 0)
-                    System.out.println("ПРОМАХ");
-            }
-            if (getSkill() >=10)
-                power = getStrength();
-            if (getSkill() >= 20)
-                power = getStrength() * 1.5;
-                    System.out.println("Player strikes with strength = " + (f.format(power)));
-                    monster.setHealth(monster.getHealth() - power);
-                }
-
-
-            public void monsterKilled () {
-                monstersKilled++;
-                System.out.println("Монстр уничтожен! Остаток здоровья: " + getHealth());
-
-            }
+    public void fight(Monster monster) {
+        int power = 0;
+        if (getSkill() < 10) {
+            power = getStrength() * (int) (Math.random() * 0.9);
+            if (power == 0)
+                System.out.println("ПРОМАХ");
         }
+        if (getSkill() >= 10)
+            power = getStrength();
+        if (getSkill() >= 20)
+            power = (int) (getStrength() * 1.5);
+        System.out.println("Player strikes with strength = " + power);
+        monster.setHealth(monster.getHealth() - power);
+    }
 
+    public void monsterKilled(Monster monster) {
+        monstersKilled++;
+        System.out.println("Монстр уничтожен! Остаток здоровья: " + getHealth());
+        if (monster.getExperience() < 10) {
+            this.setExperience(getExperience() + 1);
+            this.setSkill(getSkill() + 1);
+        }
+        if (monster.getExperience() >= 10) {
+            this.setExperience(getExperience() + 3);
+            this.setSkill(getSkill() + 2);
+        }
+        if (monster.getExperience() >= 20) {
+            this.setExperience(getExperience() + 5);
+            this.setSkill(getSkill() + 4);
+        }
+    }
+}

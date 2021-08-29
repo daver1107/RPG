@@ -12,7 +12,7 @@ public class World {
     public void start() {
         System.out.println("Введите имя персонажа: ");
         String name = sc.nextLine();
-        this.player = new Player(name, 100, 15, 10, 1000, 0);
+        this.player = new Player(name, 100, 10, 10, 1000, 10);
         System.out.println("Создан игрок: " + name);
         village();
     }
@@ -27,7 +27,10 @@ public class World {
                     "\n4. Выйти из игры");
             int choice = sc.nextInt();
             switch (choice) {
-                case 1 -> player.getInfo();
+                case 1 -> {
+                    player.getInfo();
+                    village();
+                }
                 case 2 -> merchant();
                 case 3 -> darkForrest();
                 case 4 -> {
@@ -36,6 +39,9 @@ public class World {
                 }
                 default -> System.out.println("Такого действия не существует");
             }
+            if (!player.isAlive())
+                System.out.println("Game over");
+                return;
         }
     }
     void merchant() {
@@ -57,9 +63,9 @@ public class World {
     void darkForrest() {
         int dice = (int)(Math.random()*2);
         if (dice > 0)
-            monster = new Monster("Zombie");
+            monster = new Monster("Zombie", 100, (int) (Math.random() * 50),(int) (Math.random() * 20), (int) (Math.random() * 50));
         else
-            monster = new Monster("Skelleton");
+            monster = new Monster("Skelleton", 60, (int) (Math.random() * 10), (int)(Math.random() * 5), (int) (Math.random() * 10));
         System.out.println("В лесу вы встретили мостра: \n" +
                 monster.getInfo() +
                 "\nВаши действия: " +
@@ -70,6 +76,7 @@ public class World {
             case 1 -> {
                 Battle battle = new Battle();
                 battle.startBattle(player, monster);
+                village();
             }
             case 2 -> village();
         }

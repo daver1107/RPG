@@ -1,6 +1,6 @@
 public class Monster extends Character {
     @Override
-    public void setHealth(double health) {
+    public void setHealth(int health) {
         super.setHealth(health);
     }
 
@@ -10,7 +10,7 @@ public class Monster extends Character {
     }
 
     @Override
-    public void setStrength(double strength) {
+    public void setStrength(int strength) {
         super.setStrength(strength);
     }
 
@@ -28,18 +28,13 @@ public class Monster extends Character {
         super(name, health, skill, strength, experience);
     }
 
-    public Monster(String name) {
-        super(name, 100, (int) (Math.random() * 50), (int) (Math.random() * 20), (int) (Math.random() * 50));
-    }
-
-
     @Override
     public String getName() {
         return super.getName();
     }
 
     @Override
-    public double getHealth() {
+    public int getHealth() {
         return super.getHealth();
     }
 
@@ -49,7 +44,7 @@ public class Monster extends Character {
     }
 
     @Override
-    public double getStrength() {
+    public int getStrength() {
         return super.getStrength();
     }
 
@@ -64,10 +59,20 @@ public class Monster extends Character {
     }
 
     public void fight(Player player) {
+        int power = 0;
+        if (getSkill() < 10) {
 
-            System.out.println("Monster strikes");
-            player.setHealth(player.getHealth() - this.getStrength());
-    }
+            power = (int) (getStrength() * Math.random());
+                    }
+        if (getSkill() >= 10)
+            power = getStrength();
+        if (getSkill() >= 20)
+            power = (int) (getStrength() * 1.5);
+        System.out.println("Monster strikes with strength = " + power);
+        if (power == 0)
+        System.out.println("ПРОМАХ");
+        player.setHealth(player.getHealth() - power);
+        }
 
     public String getInfo() {
         return   "Имя: " + getName() +

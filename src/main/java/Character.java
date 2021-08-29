@@ -1,14 +1,14 @@
 public abstract class Character {
 
     private String name;
-    private double health;
+    private int health;
     private int skill;
-    private double strength;
+    private int strength;
     private int gold;
     private int experience;
     boolean isAlive = true;
 
-    public void setHealth(double health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 
@@ -16,7 +16,7 @@ public abstract class Character {
         this.skill = skill;
     }
 
-    public void setStrength(double strength) {
+    public void setStrength(int strength) {
         this.strength = strength;
     }
 
@@ -28,7 +28,7 @@ public abstract class Character {
         this.experience = experience;
     }
 
-    public Character(String name, double health, int skill, double strength, int gold, int experience) {
+    public Character(String name, int health, int skill, int strength, int gold, int experience) {
         this.name = name;
         this.health = health;
         this.skill = skill;
@@ -36,7 +36,7 @@ public abstract class Character {
         this.gold = gold;
         this.experience = experience;
     }
-    public Character(String name, int health, int skill, int strength,int experience) {
+    public Character(String name, int health, int skill, int strength, int experience) {
         this.name = name;
         this.health = health;
         this.skill = skill;
@@ -48,7 +48,7 @@ public abstract class Character {
         return name;
     }
 
-    public double getHealth() {
+    public int getHealth() {
         return health;
     }
 
@@ -56,7 +56,7 @@ public abstract class Character {
         return skill;
     }
 
-    public double getStrength() {
+    public int getStrength() {
         return strength;
     }
 

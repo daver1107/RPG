@@ -5,7 +5,7 @@ public class Merchant extends Character{
     }
 
     @Override
-    public double getHealth() {
+    public int getHealth() {
         return super.getHealth();
     }
 
@@ -15,12 +15,12 @@ public class Merchant extends Character{
     }
 
     @Override
-    public double getStrength() {
+    public int getStrength() {
         return super.getStrength();
     }
 
     @Override
-    public void setHealth(double health) {
+    public void setHealth(int health) {
         super.setHealth(health);
     }
 
@@ -30,7 +30,7 @@ public class Merchant extends Character{
     }
 
     @Override
-    public void setStrength(double strength) {
+    public void setStrength(int strength) {
         super.setStrength(strength);
     }
 
@@ -55,7 +55,7 @@ public class Merchant extends Character{
     }
 
     public Merchant(String name, int health, int skill, int strength, int gold, int experience) {
-        super(name, health, skill, strength, gold, experience);
+        super(name, health, skill, strength, gold);
     }
 
     public void sellHealth(Player player, int size){
@@ -68,7 +68,7 @@ public class Merchant extends Character{
                 player.setHealth(100);
             player.setGold(player.getGold() - 50);
             this.setGold(this.getGold() + 50);
-            System.out.println("Здоровье увеличен на 50 единиц. Всего: " + player.getHealth());
+            System.out.println("Здоровье увеличено на 50 единиц. Всего: " + player.getHealth());
         }
         if(size == 2) {
             player.setHealth(player.getHealth() + 100);
