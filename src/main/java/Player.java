@@ -1,5 +1,6 @@
 public class Player extends Character {
-    private int monstersKilled;
+    private int zombiesKilled;
+    private int skeletons;
 
     @Override
     public String getName() {
@@ -58,7 +59,6 @@ public class Player extends Character {
 
     public Player(String name, int health, int skill, int strength, int gold, int experience) {
         super(name, health, skill, strength, gold, experience);
-        this.monstersKilled = 0;
     }
 
 
@@ -69,7 +69,9 @@ public class Player extends Character {
                 "\nСила: " + getStrength() +
                 "\nЗолото: " + getGold() +
                 "\nОпыт: " + getExperience() +
-                "\nУбито монстров: " + monstersKilled);
+                "\nУбито монстров: " +
+                "\n Зомби: " + zombiesKilled +
+                "\n Скелеты: " + skeletons);
     }
 
     public void fight(Monster monster) {
@@ -88,8 +90,11 @@ public class Player extends Character {
     }
 
     public void monsterKilled(Monster monster) {
-        monstersKilled++;
-        System.out.println("Монстр уничтожен! Остаток здоровья: " + getHealth());
+        if (monster instanceof Skeleton)
+            skeletons++;
+        if (monster instanceof Zombie)
+            zombiesKilled++;
+        System.out.println("Монстр " + monster.getName() + " уничтожен! Остаток здоровья: " + getHealth());
         if (monster.getExperience() < 10) {
             this.setExperience(getExperience() + 1);
             this.setSkill(getSkill() + 1);

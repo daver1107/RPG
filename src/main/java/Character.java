@@ -28,6 +28,9 @@ public abstract class Character {
         this.experience = experience;
     }
 
+    public Character() {
+    }
+
     public Character(String name, int health, int skill, int strength, int gold, int experience) {
         this.name = name;
         this.health = health;

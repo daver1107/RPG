@@ -4,9 +4,12 @@ public class World {
     Player player;
     Monster monster;
     Scanner sc;
+    Merchant merchant;
 
     public World() {
         this.sc = new Scanner(System.in);
+        this.merchant = new Merchant("Торговец", 100, 50, 50, 100000, 50);
+
     }
 
     public void start() {
@@ -18,7 +21,7 @@ public class World {
     }
 
     void village() {
-        while (true) {
+
             System.out.println("Мы находимся в деревне. " +
                     "\nВаши действия: " +
                     "\n1. Параметры персонажа" +
@@ -41,31 +44,38 @@ public class World {
             }
             if (!player.isAlive())
                 System.out.println("Game over");
-                return;
-        }
+            return;
+
     }
+
     void merchant() {
-        Merchant merchant = new Merchant("Торговец", 100, 50, 50, 100000, 50);
         System.out.println("Мы в лавке торговца " +
                 "\nВ кошельке " + player.getGold() +
                 "\nЧто вы хотели купить у торговца?" +
                 "\n1. +50 здоровья (50 золота) " +
                 "\n2. +100 здоровья (100 золота)" +
                 "\n3. Выйти из лавки");
+
         int merchChoice = sc.nextInt();
         switch (merchChoice) {
-            case 1 -> merchant.sellHealth(player, 1);
-            case 2 -> merchant.sellHealth(player, 2);
+            case 1 -> {
+                merchant.sellHealth(player, 1);
+                merchant();
+            }
+            case 2 -> {
+                merchant.sellHealth(player, 2);
+                merchant();
+            }
             case 3 -> village();
         }
     }
 
     void darkForrest() {
-        int dice = (int)(Math.random()*2);
+        int dice = (int) (Math.random() * 2);
         if (dice > 0)
-            monster = new Monster("Zombie", 100, (int) (Math.random() * 50),(int) (Math.random() * 20), (int) (Math.random() * 50));
+            monster = new Zombie();
         else
-            monster = new Monster("Skelleton", 60, (int) (Math.random() * 10), (int)(Math.random() * 5), (int) (Math.random() * 10));
+            monster = new Skeleton();
         System.out.println("В лесу вы встретили мостра: \n" +
                 monster.getInfo() +
                 "\nВаши действия: " +

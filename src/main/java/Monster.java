@@ -1,4 +1,4 @@
-public class Monster extends Character {
+public abstract class Monster extends Character {
     @Override
     public void setHealth(int health) {
         super.setHealth(health);
@@ -74,8 +74,11 @@ public class Monster extends Character {
         player.setHealth(player.getHealth() - power);
         }
 
+    public Monster() {
+    }
+
     public String getInfo() {
-        return   "Имя: " + getName() +
+        return "Имя: " + getName() +
                 "\nЗдоровье: " + getHealth() +
                 "\nЛовкость: " + getSkill() +
                 "\nСила: " + getStrength() +
