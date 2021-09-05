@@ -11,8 +11,6 @@ public class Player extends Character {
         this.moral = moral;
     }
 
-
-
     @Override
     public String getName() {
         return super.getName();
@@ -73,7 +71,7 @@ public class Player extends Character {
         moral = 40;
     }
 
-
+    //Выводим информацию об игроке
     public void getInfo() {
         System.out.println("Имя: " + getName() +
                 "\nЗдоровье: " + getHealth() +
@@ -87,28 +85,37 @@ public class Player extends Character {
                 "\n Скелеты: " + skeletonsKilled);
     }
 
+    //Сражение с монстром, игрок наносит удар
     public void fight(Monster monster) {
         int power = 0;
+        //Если недостаточно единиц ловкости, игрок может промахнуться
         if (getSkill() < 10) {
             power = getStrength() * (int) (Math.random() * 0.9);
             if (power == 0)
                 System.out.println("ПРОМАХ");
         }
+        //Игрок наносит обычный удар
         if (getSkill() >= 10)
             power = getStrength();
+        //Прокаченный показатель ловкости прибавляет рандомный бонус до +5 к урону
         if (getSkill() >= 20)
-            power = (int) (getStrength() * 1.5);
+            power = getStrength() + ((int) (Math.random() * 6));
         System.out.println("Player strikes with strength = " + power);
         monster.setHealth(monster.getHealth() - power);
     }
 
+    //Логика изменений параметров героя после выигранной битвы
+    //Победа повышает мораль
     public void playerWins(Monster monster) {
         setMoral(getMoral() + 1);
+        //Подсчитываем количество убитых монстров
         if (monster instanceof Skeleton)
             skeletonsKilled++;
         if (monster instanceof Zombie)
             zombiesKilled++;
+        //Выводим остаток здоровья после выигранной битвы
         System.out.println("Монстр " + monster.getName() + " уничтожен! Остаток здоровья: " + getHealth());
+        //Логика прокачки скиллов персонажа
         if (monster.getExperience() < 10) {
             this.setExperience(getExperience() + 1);
             this.setSkill(getSkill() + 1);
