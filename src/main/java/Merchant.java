@@ -64,6 +64,7 @@ public class Merchant extends Character{
         else
         if(size == 1) {
             player.setHealth(player.getHealth() + 50);
+            //Здоровье не может превышать 100 единиц
             if (player.getHealth() > 100)
                 player.setHealth(100);
             player.setGold(player.getGold() - 50);
@@ -72,6 +73,7 @@ public class Merchant extends Character{
         }
         if(size == 2) {
             player.setHealth(player.getHealth() + 100);
+            //Здоровье не может превышать 100 единиц
             if (player.getHealth() > 100)
                 player.setHealth(100);
             player.setGold(player.getGold() - 100);

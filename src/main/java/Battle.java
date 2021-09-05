@@ -8,7 +8,7 @@ public class Battle {
     }
 
     public void startBattle() {
-        if (skillCheck() > 0) {
+        if (experienceCheck() > 0) {
             while (player.isAlive() && monster.isAlive()) {
                 player.fight(monster);
                 chanceOfSecondStrike();
@@ -28,12 +28,14 @@ public class Battle {
             System.out.println("Игрок уничтожен");
     }
 
-    private int skillCheck() {
-        if (player.getSkill() > monster.getSkill())
+    //По опыту персонажей определяем, кто бьет первым
+    private int experienceCheck() {
+        if (player.getExperience() > monster.getExperience())
             return 1;
         else return 0;
     }
 
+    //При высаком показателе морали игрок может нанести двойной удар
     private void chanceOfSecondStrike() {
         int chance = (int) (Math.random() * 20);
         if ((player.getMoral() >= 10 && chance > 15) || (player.getMoral() >= 20 && chance > 10) || (player.getMoral() >= 30 && chance > 5))

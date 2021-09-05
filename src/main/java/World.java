@@ -67,6 +67,7 @@ public class World {
     }
 
     void darkForrest() {
+        //Из леса по результату лотореи выходит рандомный монстр
         int dice = (int) (Math.random() * 2);
         if (dice > 0)
             monster = new Zombie();
