@@ -1,6 +1,7 @@
 public class Player extends Character {
     private int zombiesKilled;
     private int skeletonsKilled;
+    private int moral;
 
     public int getMoral() {
         return moral;
@@ -10,7 +11,7 @@ public class Player extends Character {
         this.moral = moral;
     }
 
-    private int moral;
+
 
     @Override
     public String getName() {
