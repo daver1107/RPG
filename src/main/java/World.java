@@ -22,30 +22,26 @@ public class World {
 
     void village() {
 
-            System.out.println("Мы находимся в деревне. " +
-                    "\nВаши действия: " +
-                    "\n1. Параметры персонажа" +
-                    "\n2. Пойдти к торговцу" +
-                    "\n3. Пойти в темный лес " +
-                    "\n4. Выйти из игры");
-            int choice = sc.nextInt();
-            switch (choice) {
-                case 1 -> {
-                    player.getInfo();
-                    village();
-                }
-                case 2 -> merchant();
-                case 3 -> darkForrest();
-                case 4 -> {
-                    System.out.println("Выход из игры");
-                    return;
-                }
-                default -> System.out.println("Такого действия не существует");
+        System.out.println("Мы находимся в деревне. " +
+                "\nВаши действия: " +
+                "\n1. Параметры персонажа" +
+                "\n2. Пойдти к торговцу" +
+                "\n3. Пойти в темный лес " +
+                "\n4. Выйти из игры");
+        int choice = sc.nextInt();
+        switch (choice) {
+            case 1 -> {
+                player.getInfo();
+                village();
             }
-            if (!player.isAlive())
-                System.out.println("Game over");
-            return;
-
+            case 2 -> merchant();
+            case 3 -> darkForrest();
+            case 4 -> {
+                System.out.println("Выход из игры");
+                return;
+            }
+            default -> System.out.println("Такого действия не существует");
+        }
     }
 
     void merchant() {
@@ -84,9 +80,13 @@ public class World {
         int battleChoice = sc.nextInt();
         switch (battleChoice) {
             case 1 -> {
-                Battle battle = new Battle();
-                battle.startBattle(player, monster);
-                village();
+                Battle battle = new Battle(player, monster);
+                battle.startBattle();
+                if (player.isAlive())
+                    darkForrest();
+                else
+                    System.out.println("Game over");
+                return;
             }
             case 2 -> village();
         }

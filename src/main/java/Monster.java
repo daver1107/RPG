@@ -74,9 +74,6 @@ public abstract class Monster extends Character {
         player.setHealth(player.getHealth() - power);
         }
 
-    public Monster() {
-    }
-
     public String getInfo() {
         return "Имя: " + getName() +
                 "\nЗдоровье: " + getHealth() +
@@ -84,5 +81,4 @@ public abstract class Monster extends Character {
                 "\nСила: " + getStrength() +
                 "\nОпыт: " + getExperience();
     }
-
 }

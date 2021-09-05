@@ -1,6 +1,16 @@
 public class Player extends Character {
     private int zombiesKilled;
-    private int skeletons;
+    private int skeletonsKilled;
+
+    public int getMoral() {
+        return moral;
+    }
+
+    public void setMoral(int moral) {
+        this.moral = moral;
+    }
+
+    private int moral;
 
     @Override
     public String getName() {
@@ -59,6 +69,7 @@ public class Player extends Character {
 
     public Player(String name, int health, int skill, int strength, int gold, int experience) {
         super(name, health, skill, strength, gold, experience);
+        moral = 40;
     }
 
 
@@ -69,9 +80,10 @@ public class Player extends Character {
                 "\nСила: " + getStrength() +
                 "\nЗолото: " + getGold() +
                 "\nОпыт: " + getExperience() +
-                "\nУбито монстров: " +
+                "\nУдача: " + getMoral() +
+                "\nУбито монстров: " + (zombiesKilled + skeletonsKilled) +
                 "\n Зомби: " + zombiesKilled +
-                "\n Скелеты: " + skeletons);
+                "\n Скелеты: " + skeletonsKilled);
     }
 
     public void fight(Monster monster) {
@@ -89,9 +101,10 @@ public class Player extends Character {
         monster.setHealth(monster.getHealth() - power);
     }
 
-    public void monsterKilled(Monster monster) {
+    public void playerWins(Monster monster) {
+        setMoral(getMoral() + 1);
         if (monster instanceof Skeleton)
-            skeletons++;
+            skeletonsKilled++;
         if (monster instanceof Zombie)
             zombiesKilled++;
         System.out.println("Монстр " + monster.getName() + " уничтожен! Остаток здоровья: " + getHealth());
