@@ -75,7 +75,6 @@ public class Player extends Character {
     public Player(String name, int health, int skill, int strength, int gold, int experience) {
         super(name, health, skill, strength, gold, experience);
         moral = 40;
-
         moralState();
 
     }
@@ -99,20 +98,25 @@ public class Player extends Character {
     public void fight(Monster monster) {
         int power = 0;
         //Если недостаточно единиц ловкости, игрок может промахнуться
-        if (getSkill() < 10) {
-            power = getStrength() * (int) (Math.random() * 0.9);
-            if (power == 0)
-                System.out.println("ПРОМАХ");
+        do {
+            healInBattle();
+            if (getSkill() < 10) {
+                power = getStrength() * (int) (Math.random() * 0.9);
+                if (power == 0)
+                    System.out.println("ПРОМАХ");
+            }
+            //Игрок наносит обычный удар
+            if (getSkill() >= 10)
+                power = getStrength();
+            //Прокаченный показатель ловкости прибавляет рандомный бонус до +5 к урону
+            if (getSkill() >= 20)
+                power = getStrength() + ((int) (Math.random() * 6));
+            System.out.println("Player strikes with strength = " + power);
+            monster.setHealth(monster.getHealth() - power);
         }
-        //Игрок наносит обычный удар
-        if (getSkill() >= 10)
-            power = getStrength();
-        //Прокаченный показатель ловкости прибавляет рандомный бонус до +5 к урону
-        if (getSkill() >= 20)
-            power = getStrength() + ((int) (Math.random() * 6));
-        System.out.println("Player strikes with strength = " + power);
-        monster.setHealth(monster.getHealth() - power);
+        while (chanceOfSecondStrike());
     }
+
 
     //Логика изменений параметров героя после выигранной битвы
     //Победа повышает мораль
@@ -165,6 +169,7 @@ public class Player extends Character {
         }).start();
 
     }
+
     //Лекарство с собой может быть использовано во время битвы
     void buyMeds(int price, String name) {
         bag.add(name);
@@ -173,18 +178,24 @@ public class Player extends Character {
 
     //При наличии лекарства, пополняем здоровье на критической отметке и продолжаем битву
     void healInBattle() {
-        if (getHealth() < 50 && bag.contains("Health 50"))
-        {
+        if (getHealth() < 50 && bag.contains("Health 50")) {
             setHealth(getHealth() + 50);
             System.out.println("Использовано лекарство из амуниции. Добавлено + 50 к здоровью");
             bag.remove("Health 50");
         }
-        if (getHealth() < 30 && bag.contains("Health 100"))
-        {
+        if (getHealth() < 30 && bag.contains("Health 100")) {
             setHealth(getHealth() + 50);
             System.out.println("Использовано лекарство из амуниции. Добавлено + 100 к здоровью");
             bag.remove("Health 100");
         }
     }
 
+    boolean chanceOfSecondStrike() {
+        int chance = (int) (Math.random() * 1000);
+        if ((getMoral() >= 10 && chance > 800) || (getMoral() >= 20 && chance > 500) || (getMoral() >= 30 && chance > 100)) {
+            System.out.println("Moral is high! you have a second strike!");
+            return true;
+        } else return false;
+
+    }
 }

@@ -103,7 +103,6 @@ public class World {
                     darkForrest();
                 else
                     System.out.println("Game over");
-                return;
             }
             case 2 -> village();
             default -> {

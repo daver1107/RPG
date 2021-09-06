@@ -11,17 +11,12 @@ public class Battle {
         if (experienceCheck() > 0) {
             while (player.isAlive() && monster.isAlive()) {
                 player.fight(monster);
-                player.healInBattle();
-                chanceOfSecondStrike();
                 monster.fight(player);
             }
         } else {
             while (player.isAlive() && monster.isAlive()) {
                 monster.fight(player);
                 player.fight(monster);
-                player.healInBattle();
-                chanceOfSecondStrike();
-
             }
         }
         if (!monster.isAlive())
@@ -37,12 +32,4 @@ public class Battle {
         else return 0;
     }
 
-    //При высаком показателе морали игрок может нанести двойной удар
-    private void chanceOfSecondStrike() {
-        int chance = (int) (Math.random() * 20);
-        if ((player.getMoral() >= 10 && chance > 15) || (player.getMoral() >= 20 && chance > 10) || (player.getMoral() >= 30 && chance > 5))
-            System.out.println("Moral is high! you have a second strike!");
-        player.fight(monster);
-
-    }
 }
