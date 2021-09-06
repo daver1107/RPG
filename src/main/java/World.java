@@ -103,7 +103,7 @@ public class World {
                     darkForrest();
                 else
                     System.out.println("Game over");
-            }
+                            }
             case 2 -> village();
             default -> {
                 System.out.println("Такого действия не существует");

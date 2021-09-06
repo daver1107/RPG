@@ -74,7 +74,7 @@ public class Player extends Character {
 
     public Player(String name, int health, int skill, int strength, int gold, int experience) {
         super(name, health, skill, strength, gold, experience);
-        moral = 40;
+        moral = 10;
         moralState();
 
     }
