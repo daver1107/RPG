@@ -1,7 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Thread.*;
+
 public class Player extends Character {
     private int zombiesKilled;
     private int skeletonsKilled;
     private int moral;
+    List<String> bag = new ArrayList<>();
 
     public int getMoral() {
         return moral;
@@ -69,6 +75,9 @@ public class Player extends Character {
     public Player(String name, int health, int skill, int strength, int gold, int experience) {
         super(name, health, skill, strength, gold, experience);
         moral = 40;
+
+        moralState();
+
     }
 
     //Выводим информацию об игроке
@@ -81,6 +90,7 @@ public class Player extends Character {
                 "\nОпыт: " + getExperience() +
                 "\nУдача: " + getMoral() +
                 "\nУбито монстров: " + (zombiesKilled + skeletonsKilled) +
+                "\nАмуниция: " + bag +
                 "\n Зомби: " + zombiesKilled +
                 "\n Скелеты: " + skeletonsKilled);
     }
@@ -129,4 +139,52 @@ public class Player extends Character {
             this.setSkill(getSkill() + 4);
         }
     }
+
+    void renewHealth(int health) {
+        setHealth(getHealth() + health);
+        if (getHealth() > 100)
+            setHealth(100);
+        System.out.println("Здоровье увеличено на " + health + " единиц. Всего: " + getHealth());
+    }
+
+    //Показатель морали уменьшается
+    void moralState() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (getMoral() > 0) {
+                    setMoral(getMoral() - 1);
+                    try {
+                        sleep(15000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }).start();
+
+    }
+    //Лекарство с собой может быть использовано во время битвы
+    void buyMeds(int price, String name) {
+        bag.add(name);
+        setGold((getGold() - price));
+    }
+
+    //При наличии лекарства, пополняем здоровье на критической отметке и продолжаем битву
+    void healInBattle() {
+        if (getHealth() < 50 && bag.contains("Health 50"))
+        {
+            setHealth(getHealth() + 50);
+            System.out.println("Использовано лекарство из амуниции. Добавлено + 50 к здоровью");
+            bag.remove("Health 50");
+        }
+        if (getHealth() < 30 && bag.contains("Health 100"))
+        {
+            setHealth(getHealth() + 50);
+            System.out.println("Использовано лекарство из амуниции. Добавлено + 100 к здоровью");
+            bag.remove("Health 100");
+        }
+    }
+
 }

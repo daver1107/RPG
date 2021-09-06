@@ -11,6 +11,7 @@ public class Battle {
         if (experienceCheck() > 0) {
             while (player.isAlive() && monster.isAlive()) {
                 player.fight(monster);
+                player.healInBattle();
                 chanceOfSecondStrike();
                 monster.fight(player);
             }
@@ -18,6 +19,7 @@ public class Battle {
             while (player.isAlive() && monster.isAlive()) {
                 monster.fight(player);
                 player.fight(monster);
+                player.healInBattle();
                 chanceOfSecondStrike();
 
             }

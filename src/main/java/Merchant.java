@@ -1,4 +1,4 @@
-public class Merchant extends Character{
+public class Merchant extends Character {
     @Override
     public String getName() {
         return super.getName();
@@ -58,28 +58,21 @@ public class Merchant extends Character{
         super(name, health, skill, strength, gold);
     }
 
-    public void sellHealth(Player player, int size){
+    public void heal(Player player, int size) {
         if (player.getHealth() == 100)
             System.out.println("У вас максимальное здоровье: " + player.getHealth());
-        else
-        if(size == 1) {
-            player.setHealth(player.getHealth() + 50);
-            //Здоровье не может превышать 100 единиц
-            if (player.getHealth() > 100)
-                player.setHealth(100);
+        else if (size == 1) {
+            player.renewHealth(50);
             player.setGold(player.getGold() - 50);
             this.setGold(this.getGold() + 50);
-            System.out.println("Здоровье увеличено на 50 единиц. Всего: " + player.getHealth());
         }
-        if(size == 2) {
-            player.setHealth(player.getHealth() + 100);
-            //Здоровье не может превышать 100 единиц
-            if (player.getHealth() > 100)
-                player.setHealth(100);
+        if (size == 2) {
+            player.renewHealth(100);
             player.setGold(player.getGold() - 100);
             this.setGold(this.getGold() + 100);
-            System.out.println("Здоровье пополнено. Всего: " + player.getHealth());
         }
 
     }
+
 }
+

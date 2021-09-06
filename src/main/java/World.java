@@ -21,13 +21,13 @@ public class World {
     }
 
     void village() {
-
         System.out.println("Мы находимся в деревне. " +
                 "\nВаши действия: " +
                 "\n1. Параметры персонажа" +
                 "\n2. Пойдти к торговцу" +
                 "\n3. Пойти в темный лес " +
                 "\n4. Выйти из игры");
+
         int choice = sc.nextInt();
         switch (choice) {
             case 1 -> {
@@ -38,9 +38,11 @@ public class World {
             case 3 -> darkForrest();
             case 4 -> {
                 System.out.println("Выход из игры");
-                return;
             }
-            default -> System.out.println("Такого действия не существует");
+            default -> {
+                System.out.println("Такого действия не существует");
+                village();
+            }
         }
     }
 
@@ -48,21 +50,35 @@ public class World {
         System.out.println("Мы в лавке торговца " +
                 "\nВ кошельке " + player.getGold() +
                 "\nЧто вы хотели купить у торговца?" +
-                "\n1. +50 здоровья (50 золота) " +
-                "\n2. +100 здоровья (100 золота)" +
-                "\n3. Выйти из лавки");
+                "\n1. Пополнить здоровье на 50 = 100 золота " +
+                "\n2. Пополнить здоровье 100 = 200 золота" +
+                "\n3. Купить лекарство на 50 единиц с собой = 200 золота" +
+                "\n4. Купить лекарство на 100 единиц с собой = 300 золота" +
+                "\n5. Выйти из лавки");
 
         int merchChoice = sc.nextInt();
         switch (merchChoice) {
             case 1 -> {
-                merchant.sellHealth(player, 1);
+                merchant.heal(player, 1);
                 merchant();
             }
             case 2 -> {
-                merchant.sellHealth(player, 2);
+                merchant.heal(player, 2);
                 merchant();
             }
-            case 3 -> village();
+            case 3 -> {
+                player.buyMeds(200, "Health 50");
+                merchant();
+            }
+            case 4 -> {
+                player.buyMeds(300, "Health 100");
+                merchant();
+            }
+            case 5 -> village();
+            default -> {
+                System.out.println("Такого действия не существует");
+                merchant();
+            }
         }
     }
 
@@ -90,6 +106,10 @@ public class World {
                 return;
             }
             case 2 -> village();
+            default -> {
+                System.out.println("Такого действия не существует");
+                darkForrest();
+            }
         }
     }
 }
