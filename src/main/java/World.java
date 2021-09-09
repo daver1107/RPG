@@ -102,8 +102,10 @@ public class World {
                 if (player.isAlive())
                     darkForrest();
                 else
-                    System.out.println("Game over");
-                            }
+                    System.out.println("Игрок уничтожен. \nGame over");
+
+
+            }
             case 2 -> village();
             default -> {
                 System.out.println("Такого действия не существует");
