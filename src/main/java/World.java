@@ -20,7 +20,7 @@ public class World {
         village();
     }
 
-    void village() {
+    private void village() {
         System.out.println("Мы находимся в деревне. " +
                 "\nВаши действия: " +
                 "\n1. Параметры персонажа" +
@@ -46,7 +46,7 @@ public class World {
         }
     }
 
-    void merchant() {
+    private void merchant() {
         System.out.println("Мы в лавке торговца " +
                 "\nВ кошельке " + player.getGold() +
                 "\nЧто вы хотели купить у торговца?" +
@@ -82,7 +82,7 @@ public class World {
         }
     }
 
-    void darkForrest() {
+    private void darkForrest() {
         //Из леса по результату лотореи выходит рандомный монстр
         int dice = (int) (Math.random() * 2);
         if (dice > 0)
@@ -103,8 +103,6 @@ public class World {
                     darkForrest();
                 else
                     System.out.println("Игрок уничтожен. \nGame over");
-
-
             }
             case 2 -> village();
             default -> {
