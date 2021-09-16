@@ -18,6 +18,7 @@ public class World {
         this.player = new Player(name, 100, 10, 10, 1000, 10);
         System.out.println("Создан игрок: " + name);
         village();
+        System.exit(0);
     }
 
     private void village() {
@@ -38,6 +39,7 @@ public class World {
             case 3 -> darkForrest();
             case 4 -> {
                 System.out.println("Выход из игры");
+
             }
             default -> {
                 System.out.println("Такого действия не существует");
@@ -97,12 +99,14 @@ public class World {
         int battleChoice = sc.nextInt();
         switch (battleChoice) {
             case 1 -> {
-                Battle battle = new Battle(player, monster);
-                battle.startBattle();
-                if (player.isAlive())
-                    darkForrest();
-                else
-                    System.out.println("Игрок уничтожен. \nGame over");
+                while (player.isAlive()) {
+                    Battle battle = new Battle(player, monster);
+                    battle.startBattle();
+                    if (player.isAlive())
+                        darkForrest();
+                    else
+                        System.out.println("Игрок уничтожен. \nGame over");
+                }
             }
             case 2 -> village();
             default -> {
@@ -110,5 +114,9 @@ public class World {
                 darkForrest();
             }
         }
+
+    }
+    private void exitGame(){
+        System.out.println("Exiting");
     }
 }
