@@ -4,11 +4,13 @@ public class World {
     Player player;
     Monster monster;
     Scanner sc;
+    Governor governor;
     Merchant merchant;
 
     public World() {
         this.sc = new Scanner(System.in);
         this.merchant = new Merchant("Торговец", 100, 50, 50, 100000, 50);
+        this.governor = new Governor();
 
     }
 
@@ -26,8 +28,9 @@ public class World {
                 "\nВаши действия: " +
                 "\n1. Параметры персонажа" +
                 "\n2. Пойдти к торговцу" +
-                "\n3. Пойти в темный лес " +
-                "\n4. Выйти из игры");
+                "\n3. Губернатор " +
+                "\n4. Пойти в темный лес " +
+                "\n5. Выйти из игры");
 
         int choice = sc.nextInt();
         switch (choice) {
@@ -36,8 +39,21 @@ public class World {
                 village();
             }
             case 2 -> merchant();
-            case 3 -> darkForrest();
-            case 4 -> {
+            case 3 -> {
+                System.out.println("Награда Губернатора: " +
+                        "\n500 золотых за каждого скелета " +
+                        "\n1000 золотых за каждого Зомби");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                governor.zombiesKilledReward(player);
+                governor.skelletonKilledReward(player);
+                village();
+            }
+            case 4 -> darkForrest();
+            case 5 -> {
                 System.out.println("Выход из игры");
 
             }

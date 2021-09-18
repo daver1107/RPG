@@ -17,6 +17,22 @@ public class Player extends Character {
         this.moral = moral;
     }
 
+    public int getZombiesKilled() {
+        return zombiesKilled;
+    }
+
+    public void setZombiesKilled(int zombiesKilled) {
+        this.zombiesKilled = zombiesKilled;
+    }
+
+    public int getSkeletonsKilled() {
+        return skeletonsKilled;
+    }
+
+    public void setSkeletonsKilled(int skeletonsKilled) {
+        this.skeletonsKilled = skeletonsKilled;
+    }
+
     @Override
     public String getName() {
         return super.getName();
