@@ -188,8 +188,9 @@ public class Player extends Character {
 
     //Лекарство с собой может быть использовано во время битвы
     void buyMeds(int price, String name) {
+        if (spendMoney(price) == true)
         bag.add(name);
-        spendMoney(price);
+
     }
 
     //При наличии лекарства, пополняем здоровье на критической отметке и продолжаем битву
@@ -214,10 +215,13 @@ public class Player extends Character {
         } else return false;
 
     }
-    void spendMoney(int amount){
-        if (getGold() - amount < 0)
+    boolean spendMoney(int amount){
+        if (getGold() - amount < 0) {
             System.out.println("Not enough gold");
+            return false;
+        }
         else
-            setGold(getGold() - amount);
+       setGold(getGold() - amount);
+        return true;
     }
 }
