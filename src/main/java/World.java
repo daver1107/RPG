@@ -20,7 +20,6 @@ public class World {
         this.player = new Player(name, 100, 10, 10, 1000, 10);
         System.out.println("Создан игрок: " + name);
         village();
-        System.exit(0);
     }
 
     private void village() {
@@ -55,6 +54,7 @@ public class World {
             case 4 -> darkForrest();
             case 5 -> {
                 System.out.println("Выход из игры");
+                exitGame();
 
             }
             default -> {
@@ -121,7 +121,9 @@ public class World {
                     if (player.isAlive())
                         darkForrest();
                     else
+
                         System.out.println("Игрок уничтожен. \nGame over");
+        exitGame();
                 }
             }
             case 2 -> village();
@@ -133,6 +135,6 @@ public class World {
 
     }
     private void exitGame(){
-        System.out.println("Exiting");
+        System.exit(0);
     }
 }
