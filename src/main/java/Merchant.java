@@ -63,12 +63,12 @@ public class Merchant extends Character {
             System.out.println("У вас максимальное здоровье: " + player.getHealth());
         else if (size == 1) {
             player.renewHealth(50);
-            player.setGold(player.getGold() - 50);
+            player.spendMoney(50);
             this.setGold(this.getGold() + 50);
         }
         if (size == 2) {
             player.renewHealth(100);
-            player.setGold(player.getGold() - 100);
+            player.spendMoney(100);
             this.setGold(this.getGold() + 100);
         }
 
