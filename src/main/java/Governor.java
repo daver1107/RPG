@@ -1,6 +1,6 @@
 public class Governor extends Character{
     public Governor() {
-        super("Governor", 100, 0, 0, 1000000000, 0);
+        super("Simon", 100, 0, 0, 1000000000, 0);
     }
 
     void zombiesKilledReward(Player player){
