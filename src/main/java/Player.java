@@ -137,7 +137,7 @@ public class Player extends Character {
     //Логика изменений параметров героя после выигранной битвы
     //Победа повышает мораль
     public void playerWins(Monster monster) {
-        setMoral(getMoral() + 1);
+        setMoral(getMoral() + 5);
         //Подсчитываем количество убитых монстров
         if (monster instanceof Skeleton)
             skeletonsKilled++;
@@ -175,7 +175,7 @@ public class Player extends Character {
                 while (getMoral() > 0) {
                     setMoral(getMoral() - 1);
                     try {
-                        sleep(15000);
+                        sleep(20000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -188,7 +188,7 @@ public class Player extends Character {
 
     //Лекарство с собой может быть использовано во время битвы
     void buyMeds(int price, String name) {
-        if (spendMoney(price) == true)
+        if (spendMoney(price))
         bag.add(name);
 
     }
